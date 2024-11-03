@@ -30,8 +30,8 @@ def linear_plot(points: np.array(list[float]), errors: np.array(list[float])) ->
     plt.errorbar(x_coords, y_coords, xerr=dx, yerr=dy, fmt='o', label='Точки с погрешностями')
     plt.plot(x_coords, y_fit, 'r-', label=f'Линейная регрессия\na = {a:.3f} +- {a_error:.3f}, b = {b:.3f} +- {b_error:.3f}')
     plt.title('График с погрешностями и линейной регрессией')
-    plt.xlabel('h^2, см^2')
-    plt.ylabel('I, кг * м^2 * 10^-3')
+    plt.xlabel('X')
+    plt.ylabel('Y')
     plt.legend()
     plt.grid()
 
@@ -44,23 +44,3 @@ def linear_plot(points: np.array(list[float]), errors: np.array(list[float])) ->
     print(f"Точка пересечения с осью OX (x-перехват): {x_intercept:.6f}")
     print(f"Погрешность x-перехвата: {x_intercept_error:.6f}")
     plt.show()
-
-# p = np.array([
-#         (0.376, 1.09),
-#         (0.501, 2.26),
-#         (0.603, 3.20),
-#         (0.863, 5.78),
-#         (1.007, 7.28),
-#         (1.361, 11.05),
-#         (1.664, 14.22)
-#     ])
-# e = np.array([
-#         (0.002, 0.066),
-#         (0.002, 0.104),
-#         (0.002, 0.143),
-#         (0.003, 0.196),
-#         (0.004, 0.242),
-#         (0.005, 0.383),
-#         (0.007, 0.400)
-#     ])
-
