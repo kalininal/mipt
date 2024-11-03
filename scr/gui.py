@@ -35,7 +35,7 @@ class Gui:
     def __init__(self):
         # Создаем главное окно
         self.root = tk.Tk()
-        self.root.title("Считывание текста из полей")
+        self.root.title("Умный обработчик данных лаб")
 
         # Создаем поле для ввода разделителя
         self.label_sep = tk.Label(self.root, text="Введите разделитель")
@@ -68,7 +68,7 @@ class Gui:
         self.text_box4.pack(pady=5)
 
         # Создаем кнопку для считывания текста
-        self.button = tk.Button(self.root, text="Считать текст", command=self.get_text_to_data)
+        self.button = tk.Button(self.root, text="Построить график", command=self.get_text_to_data)
         self.button.pack(pady=10)
 
     def get_text_to_data(self):
