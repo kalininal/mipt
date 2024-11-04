@@ -16,8 +16,7 @@ errors_x = Errors()
 errors_y = Errors()
 errors_x.add_val_with_sigma(data.get_val_x(), data.get_error_x())
 errors_y.add_val_with_sigma(data.get_val_y(), data.get_error_y())
-errors_x.calculate_sigma()
-errors_y.calculate_sigma()
+
 data.add_list_errors(errors_x.get_error(), errors_y.get_error())
 
 # Строим график

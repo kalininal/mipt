@@ -1,5 +1,4 @@
 import numpy as np
-from math import sqrt
 
 class Data:
     """
@@ -96,27 +95,15 @@ class Errors:
     """
     Класс Errors используется для расчета общих погрешностей измерений, включая системные и случайные погрешности.
 
-    Атрибуты:
-    ----------
     sigma : list[float]
         Список суммарных погрешностей, вычисленных для каждого значения.
-    sigma_syst : list[float]
-        Список системных погрешностей.
-    sigma_rand : float
-        Случайная погрешность, рассчитанная для значений.
+    epsilon : list[float]
+        Список абсолютных погрешностей, выраженных как доля от значений.
     val : list[float]
         Список значений, для которых рассчитываются погрешности.
-    val_avg : float
-        Среднее значение val, рассчитанное для расчета случайной погрешности.
 
     Методы:
     ----------
-    calculate_sigma() -> None:
-        Вычисляет суммарную погрешность для каждого значения, комбинируя системную и случайную погрешности.
-    calculate_sigma_rand() -> None:
-        Вычисляет случайную погрешность на основе среднего квадратичного отклонения значений.
-    add_val_with_sigma(value: list[float], sigma_syst: list[float]) -> None:
-        Устанавливает значения и соответствующие системные погрешности.
     get_value() -> list[float]:
         Возвращает список значений.
     get_error() -> list[float]:
@@ -124,50 +111,45 @@ class Errors:
     """
 
     sigma: list[float]
-    sigma_syst: list[float]
-    sigma_rand: float
-    sigma: list[float]
+    epsilon: list[float]
     val: list[float]
-    val_avg: float
 
     def __init__(self):
         self.sigma = []
+        self.val = []
 
-    def calculate_sigma(self) -> None:
+    def add_val_with_sigma(self, value, sigma) -> None:
         """
-        Вычисляет общую погрешность для каждого значения, используя формулу:
-        sigma = sqrt(sigma_rand^2 + sigma_syst^2).
-        """
-        self.calculate_sigma_rand()
-        for index in range(len(self.sigma_syst)):
-            self.sigma.append(sqrt(self.sigma_rand ** 2 + self.sigma_syst[index] ** 2))
-
-    def calculate_sigma_rand(self) -> None:
-        """
-        Вычисляет случайную погрешность на основе среднеквадратичного отклонения значений от среднего.
-        """
-        self.val_avg = 0
-        self.sigma_rand = 0
-        for elem in self.val:
-            self.val_avg += elem
-        self.val_avg /= len(self.val)
-        for elem in self.val:
-            self.sigma_rand += (elem - self.val_avg) ** 2
-        self.sigma_rand = sqrt(self.sigma_rand) / len(self.val)
-
-    def add_val_with_sigma(self, value, sigma_syst) -> None:
-        """
-        Устанавливает значения и их системные погрешности.
+        Устанавливает значения и их погрешности.
 
         Parameters:
             value (list[float]): Список значений.
-            sigma_syst (list[float]): Список системных погрешностей.
+            sigma (list[float]): Список погрешностей.
         """
         self.val = value
-        self.sigma_syst = sigma_syst
+        self.sigma = sigma
+
+    def calculate_epsilon(self) -> None:
+        """
+        Рассчитывает абсолютные погрешности (epsilon) как долю от значений.
+
+        Если списки val и sigma имеют разные размеры, выводит сообщение об ошибке.
+        """
+        if len(self.val) != len(self.sigma):
+            print("Error. Different array sizes")
+            return
+        self.epsilon = []
+        for index in range(len(self.val)):
+            self.epsilon.append(self.sigma[index] / self.val[index])
 
     def get_value(self) -> list[float]:
+        """
+        Возвращает список значений, для которых были рассчитаны погрешности.
+        """
         return self.val
 
     def get_error(self) -> list[float]:
+        """
+        Возвращает список суммарных погрешностей.
+        """
         return self.sigma

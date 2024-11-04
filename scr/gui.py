@@ -96,7 +96,6 @@ class Gui:
             Returns:
                 Data: Объект с введенными значениями x, y и их погрешностями.
         """
-
         data = Data()
         data.add_list_vals(self.text1, self.text2) # Добавляем значения x и y
         data.add_list_errors(self.text3, self.text4) # Добавляем погрешности x и y
