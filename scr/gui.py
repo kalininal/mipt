@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from data import *
+from scr.data import Data
 
 class Gui:
     """
